@@ -5,14 +5,66 @@ using namespace std;
 
 #define N 10
 
-struct Tree {
+struct node // структура для представления узлов дерева
+	//Поле key хранит ключ узла, 
+	//поле height — высоту поддерева с корнем в данном узле, 
+	//поля left и right — указатели на левое и правое поддеревья. 
+	//Простой конструктор создает новый узел (высоты 1) с заданным ключом k. 
+	//!!!
+{
 	int key;
-	Tree *left;
-	Tree *right;
-	int height;
+	unsigned char height;
+	node* left;
+	node* right;
+	node(int k) 
+	{ 
+		key = k; 
+		left = right = 0; 
+		height = 1; 
+	}
 };
 
-int random(int *mas)
+char height(node* p)
+{
+	if (p)
+		return p->height;
+	else
+		return 0;
+}
+
+int bal_factor(node* p)
+{
+	int factor = height(p->right) - height(p->left);
+	return factor;
+}
+
+void cor_height(node* p)
+{
+	char hleft = height(p->left);
+	char hright = height(p->right);
+	if (hleft > hright)
+		p->height = hleft++;
+	else
+		p->height = hright++;
+}
+
+void sort(int *m, int n)
+{
+	int j, tmp;
+	for (int i = 1; i < n; i++)
+	{
+		tmp = m[i];
+		j = i;
+		while (j > 0 && m[j-1] > tmp)
+		{
+			m[j] = m[j-1]; 
+			j--;
+		}	
+		m[j] = tmp;
+	}
+}
+
+void random(int *mas)
 {
 	int i = 0;
 		while (i < N)
@@ -27,12 +79,10 @@ int random(int *mas)
 			if (!found)
 				i++;
 		}
-	return mas;
 }
 
 int main()
 {
-	Tree *root = new Tree;
 	bool isEmpty = true;
 
 	while (true) {
@@ -50,12 +100,14 @@ int main()
 	{
 		//заполнить рандомно
 		int mas[N];
-		mas = random(mas);
-		for (int i = 0; i < N; i++)
+		random(mas);
+		int av = 0;
+		for (int i = 0; i < N; i++) {
 			cout << mas[i] << " " ;
+			av = av + mas[i];
+	}
+		av = av/N; //среднее для корня дерева
 		cout << endl;
-
-		for
 	}
 	if (x == 2)
 	{
