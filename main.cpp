@@ -3,7 +3,7 @@ using namespace std;
 
 //сделать левую вершину <= например, а правую вершину >
 
-#define N 10
+#define N 30
 
 struct node // структура для представления узлов дерева
 	//Поле key хранит ключ узла, 
@@ -64,14 +64,14 @@ void sort(int *m, int n)
 	}
 }
 
-void random(int *mas)
+void random(int *mas, int n)
 {
 	int i = 0;
-		while (i < N)
+		while (i < n)
 		{
-			mas[i] = rand() % 10;
+			mas[i] = rand() % 50;
 			bool found = false;
-			for (int j = 0; j < N; j++)
+			for (int j = 0; j < n; j++)
 			{
 				if (i!=j && mas[i] == mas[j])
 				{ found = true; break;} 
@@ -99,12 +99,10 @@ int main()
 	if (x == 1)
 	{
 		//заполнить рандомно
-		int mas[N];
-		random(mas);
-		int av = 0;
-		for (int i = 0; i < N; i++) {
-			cout << mas[i] << " " ;
-			av = av + mas[i];
+		int *m = new int; int n;
+		cout << "Enter the amount of nodes you want to add: "; 
+		cin >> n;
+		m = random(m, n);
 	}
 		av = av/N; //среднее для корня дерева
 		cout << endl;
